@@ -1,4 +1,4 @@
-public class Pessoa
+abstract class Pessoa
 {
     private String nome;
     private String cpf;
@@ -36,5 +36,9 @@ public class Pessoa
     
     public String getRg(){
         return this.rg;
+    }
+
+    public String getDescricao(){
+        return "Nome: " + this.nome + "\nCPF: " + this.cpf + "\nRG: " + this.rg + "\n";
     }
 }

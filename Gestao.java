@@ -1,6 +1,6 @@
 interface Gestao{
-    public String registrarProfessor();
-    public String removerProfessor();
-    public String registrarSala();
-    public String removerSala();
+    public String registrarProfessor(Professor professor);
+    public String removerProfessor(Professor professor);
+    public String registrarSala(Sala sala);
+    public String removerSala(Sala sala);
 }

@@ -1,27 +1,67 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
+        int choice;
         String msg1;
         String msg2;
 
         GerenciadorSalasIMD gerenciadorsalas = new GerenciadorSalasIMD();
 
-        Sala sala1 = new Sala("A101", 40, true);
-        Sala sala2 = new Sala("A102", 40, true);
+        Sala sala1 = new Sala("A101", 40, false);
+        Sala sala2 = new Sala("A102", 40, false);
+        Sala sala3 = new Sala("A103", 20, true);
+        Sala sala4 = new Sala("A104", 25, true);
+        Sala sala5 = new Sala("A105", 20, true);
 
+        Professor professor1 = new Professor("Matheus", "003003003-03","002020202", "2022032742");
+
+        System.out.println(professor1.getDescricao());
         gerenciadorsalas.registrarSala(sala1);
         gerenciadorsalas.registrarSala(sala2);
+        gerenciadorsalas.registrarSala(sala3);
+        gerenciadorsalas.registrarSala(sala4);
+        gerenciadorsalas.registrarSala(sala5);
 
-        gerenciadorsalas.exibeSalasRegistradas();
+        while(true){
+            System.out.println("O que você quer fazer?\n\n" +
+            "1. Listar salas registradas\n" +
+            "2. Listar professores registrados\n"
+            );
 
-        msg1 = gerenciadorsalas.removerSala(sala1);
-        msg2 = gerenciadorsalas.removerSala(sala1);
+            try{
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("A entrada precisa ser um número de 1 a 6.");
+                scanner.next();
+                continue;
+            }
 
-        gerenciadorsalas.exibeSalasRegistradas();
+            switch(choice){
+                case 1:
+                    gerenciadorsalas.exibeSalasRegistradas();
+                    break;
+                case 2:
+                    gerenciadorsalas.exibeProfessoresRegistrados();
+                    break;
+                /*
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                */
+                default:
+                    System.out.println("A entrada precisa ser um número de 1 a 6.");
 
-        System.out.println("msg1: "+msg1+"\nmsg2: "+msg2);
-
+            }
+        }
     }
 }

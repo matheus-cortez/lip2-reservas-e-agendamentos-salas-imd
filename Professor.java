@@ -2,7 +2,7 @@ public class Professor extends Pessoa
 {
     private String matricula;
     
-    public Professor(String nome, String cpf, String rg, String matricula, String funcao)
+    public Professor(String nome, String cpf, String rg, String matricula)
     {
         super(nome, cpf, rg);
         this.matricula = matricula;
@@ -14,5 +14,9 @@ public class Professor extends Pessoa
     
     public String getMatricula(){
         return this.matricula;
+    }
+
+    public String getDescricao(){
+        return "Nome: " + this.getNome() + "\nCPF: " + this.getCpf() + "\nRG: " + this.getRg() + "\nMatricula: " + this.matricula + "\n";
     }
 }
