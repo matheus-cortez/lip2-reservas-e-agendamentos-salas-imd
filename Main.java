@@ -18,14 +18,22 @@ public class Main {
         Sala sala4 = new Sala("A104", 25, true);
         Sala sala5 = new Sala("A105", 20, true);
 
+        sala1.reservarHorario("2023-07-06", 1, "12345");
+        sala1.reservarHorario("2023-07-06", 2, "67890");
+        sala1.reservarHorario("2023-07-06", 5, "54321");
+        sala1.reservarHorario("2023-07-06", 6, "09876");
+        sala1.reservarHorario("2023-07-06", 7, "13579");
+
         Professor professor1 = new Professor("Matheus", "003003003-03","002020202", "2022032742");
 
-        System.out.println(professor1.getDescricao());
         gerenciadorsalas.registrarSala(sala1);
         gerenciadorsalas.registrarSala(sala2);
         gerenciadorsalas.registrarSala(sala3);
         gerenciadorsalas.registrarSala(sala4);
         gerenciadorsalas.registrarSala(sala5);
+
+        //sala1.exibeHorariosLivresNaSalaUmaSemanaPraFrente("2023-07-06");
+        gerenciadorsalas.exibeSalasLivresNoDiaEHorario("2023-07-08",4);
 
         while(true){
             System.out.println("O que você quer fazer?\n\n" +
@@ -36,7 +44,7 @@ public class Main {
             try{
                 choice = scanner.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("A entrada precisa ser um número de 1 a 6.");
+                System.out.println("A entrada precisa ser um número de 1 a 2.");
                 scanner.next();
                 continue;
             }
@@ -48,18 +56,8 @@ public class Main {
                 case 2:
                     gerenciadorsalas.exibeProfessoresRegistrados();
                     break;
-                /*
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                */
                 default:
-                    System.out.println("A entrada precisa ser um número de 1 a 6.");
+                    System.out.println("A entrada precisa ser um número de 1 a 2.");
 
             }
         }

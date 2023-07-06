@@ -48,39 +48,12 @@ public class GerenciadorSalasIMD implements Gestao
         }
     }
 
-
-    /*
-    public void reservarSala(String identificadorContaOrigem, String pixDestino, double valor){        
-        for(Cliente cliente : clientes){
-            if(cliente.getConta().getIdentificador().equals(identificadorContaOrigem)){
-                cliente.getConta().debitar(valor);
+    public void exibeSalasLivresNoDiaEHorario(String data, int horario){
+        System.out.println("Salas livres no dia " + data + " e horário " + horario + ":\n");
+        for(Sala sala : salas){
+            if(sala.isHorarioDisponivel(data,horario)){
+                System.out.println(sala.getId());
             }
-            if(cliente.getChavePix().equals(pixDestino)){
-                cliente.getConta().creditar(valor);
-            }
-        }        
-    }
-    
-    public void transferenciaViaIdentificador(String identificadorContaOrigem, String identificadorDestino, double valor){   
-        for(Cliente cliente : clientes){
-            if(cliente.getConta().getIdentificador().equals(identificadorContaOrigem)){
-                cliente.getConta().debitar(valor);
-            }
-            if(cliente.getConta().getIdentificador().equals(identificadorDestino)){
-                cliente.getConta().creditar(valor);
-            }
-        }        
-    }
-    
-    public int qntClientes(){
-        return this.clientes.size();
-    }
-    
-    public void exibirClientes(){
-        for(Cliente cliente : clientes){
-            System.out.println("Cliente: " + cliente.getNome());            
         }
     }
-    
-    */
 }
