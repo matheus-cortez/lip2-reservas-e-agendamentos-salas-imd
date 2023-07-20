@@ -11,9 +11,17 @@ public class GerenciadorSalasIMD implements Gestao
         professores = new ArrayList<Professor>();
     }
 
-    public String registrarProfessor(Professor professor){
-        //professor.get(0).registrarProfessor(this.professores, professor);
-        professores.add(professor);
+    public String registrarProfessor(Professor prof_de_interesse){
+        String mat_professor;
+
+        mat_professor = prof_de_interesse.getMatricula();
+        for(Professor professor : professores){
+            if(mat_professor == professor.getMatricula()){
+                return "Professor de matrícula " + mat_professor + " já está registrado no sistema.";
+            }
+        }
+
+        professores.add(prof_de_interesse);
 
         return "Professor registrado com sucesso!";
     }    
@@ -24,8 +32,27 @@ public class GerenciadorSalasIMD implements Gestao
         return "Professor removido com sucesso!";
     }
 
-    public String registrarSala(Sala sala){        
-        salas.add(sala);
+    public String removerProfessor(String mat_professor){
+        String mat_professor;
+        for(Professor professor : professores){
+            if(mat_professor == professor.getMatricula()){
+                professores.remove(professor);
+                return "Professor de matrícula " + mat_professor + " removido do sistema com sucesso.";
+            }
+        }
+        return "Não há professores registrados sob a matrícula " + mat_professor;
+    }
+    
+    public String registrarSala(Sala sala_de_interesse){       
+        String id_sala;
+
+        id_sala = sala_de_interesse.getId();
+        for(Sala sala : salas){
+            if(id_sala == sala.getId()){
+                return "Sala de id " + id_sala + " já está registrado no sistema.";
+            }
+        }
+        salas.add(sala_de_interesse);
 
         return "Sala registrada com sucesso!";
     }
@@ -34,6 +61,18 @@ public class GerenciadorSalasIMD implements Gestao
         salas.remove(sala);
         
         return "Sala removida com sucesso!";
+    }
+
+    public String removerSala(String id_sala){
+        String sala_de_interesse;
+
+        for(Sala sala : salas){
+            if(id_sala == sala.getId()){
+                salas.remove(sala);
+                return "Sala de id " + id_sala + " removida do sistema com sucesso.";
+            }
+        }
+        return "Não há salas registradas sob o id " + id_sala;
     }
 
     public void exibeSalasRegistradas(){

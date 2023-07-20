@@ -7,8 +7,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         int choice;
-        String msg1;
-        String msg2;
+        //String msg1;
+        //String msg2;
 
         GerenciadorSalasIMD gerenciadorsalas = new GerenciadorSalasIMD();
 
@@ -31,9 +31,14 @@ public class Main {
         gerenciadorsalas.registrarSala(sala3);
         gerenciadorsalas.registrarSala(sala4);
         gerenciadorsalas.registrarSala(sala5);
+        System.out.println(gerenciadorsalas.registrarProfessor(professor1));
 
-        //sala1.exibeHorariosLivresNaSalaUmaSemanaPraFrente("2023-07-06");
-        gerenciadorsalas.exibeSalasLivresNoDiaEHorario("2023-07-08",4);
+        gerenciadorsalas.removerSala("A101");
+
+        //sala1.exibeHorariosLivresNaSalaUmaSemanaPraFrente("2023-07-06"); // ok!
+        //gerenciadorsalas.exibeSalasRegistradas(); // ok!
+        //gerenciadorsalas.exibeSalasLivresNoDiaEHorario("2023-07-06",1); // ok!
+        //System.out.println("Horário disponivel? " + sala1.isHorarioDisponivel("2023-07-04", 1)); // ok
 
         while(true){
             System.out.println("O que você quer fazer?\n\n" +
@@ -61,5 +66,7 @@ public class Main {
 
             }
         }
+
+        
     }
 }

@@ -114,6 +114,7 @@ public class Sala
     }
 
     public boolean isHorarioDisponivel(String data, int horario) {
+        // se a sala contiver 
     if (horarios.containsKey(data)) {
         Map<Integer, String> horariosData = horarios.get(data);
         
@@ -123,7 +124,8 @@ public class Sala
             System.out.println("Horário inválido!");
         }
     } else {
-        System.out.println("Data inválida!");
+        return true; // atenção, não está verificando o formato da data
+        //System.out.println("Data inválida!");
     }
     
     return false;
