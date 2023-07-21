@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class GerenciadorSalasIMD implements Gestao
 {
@@ -9,6 +14,52 @@ public class GerenciadorSalasIMD implements Gestao
     {
         salas = new ArrayList<Sala>();
         professores = new ArrayList<Professor>();
+    }
+
+    public boolean existeSala(String id_sala){
+        for(Sala sala : salas){
+            if(id_sala == sala.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void printaSala(Sala sala){
+        String id;
+        id = sala.getId();
+
+        System.out.println(id);
+    }
+
+    public boolean existeProfessor(String mat_professor){
+        for(Professor professor : professores){
+            if(mat_professor == professor.getMatricula()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Professor retornaProfessor(String mat_professor){
+        for(Professor professor : professores){
+            if(mat_professor == professor.getMatricula()){
+                return professor;
+            }
+        }
+        Professor blank_professor = new Professor("blank","blank","blank","blank");
+        return blank_professor;
+    }
+
+    public Sala retornaSala(String id_sala){
+        for(Sala sala : salas){
+            if(id_sala.equals(sala.getId())){
+                return sala;
+            }
+        }
+        System.out.println("Entrou no blank sala");
+        Sala blank_sala = new Sala("blank",1,false);
+        return blank_sala;
     }
 
     public String registrarProfessor(Professor prof_de_interesse){
@@ -33,13 +84,11 @@ public class GerenciadorSalasIMD implements Gestao
     }
 
     public String removerProfessor(String mat_professor){
-        String mat_professor;
-        for(Professor professor : professores){
-            if(mat_professor == professor.getMatricula()){
-                professores.remove(professor);
-                return "Professor de matrícula " + mat_professor + " removido do sistema com sucesso.";
-            }
+        if(existeProfessor(mat_professor)){
+            professores.remove(retornaProfessor(mat_professor));
+            return "Professor de matrícula " + mat_professor + " removido do sistema com sucesso.";
         }
+
         return "Não há professores registrados sob a matrícula " + mat_professor;
     }
     
@@ -81,6 +130,20 @@ public class GerenciadorSalasIMD implements Gestao
         }
     }
 
+/*     public void exibeReservasDeProfessor(String mat_professor){
+        if(!existeProfessor(mat_professor)){
+            System.out.println("Não existe um professor associado a essa matrícula.");
+            return;
+        }
+
+        Professor professor = retornaProfessor(mat_professor);
+
+        for(Sala sala : salas){
+
+        }
+
+    } */
+
     public void exibeProfessoresRegistrados(){
         for(Professor professor : professores){
             System.out.println(professor.getNome() + " " + professor.getMatricula());
@@ -90,8 +153,100 @@ public class GerenciadorSalasIMD implements Gestao
     public void exibeSalasLivresNoDiaEHorario(String data, int horario){
         System.out.println("Salas livres no dia " + data + " e horário " + horario + ":\n");
         for(Sala sala : salas){
-            if(sala.isHorarioDisponivel(data,horario)){
+            if(isHorarioDisponivel(sala,data,horario)){
                 System.out.println(sala.getId());
+            }
+        }
+    }
+
+
+
+
+    public boolean isHorarioDisponivel(Sala sala, String data, int horario) {
+        if (sala.horarios.containsKey(data)) {
+            Map<Integer, String> horariosData = sala.horarios.get(data);
+            
+            if (horariosData.containsKey(horario)) {
+                return horariosData.get(horario).isEmpty();
+            } else {
+                System.out.println("Horário inválido!");
+            }
+        } else {
+            return true; // atenção, não está verificando o formato da data
+            //System.out.println("Data inválida!");
+        }
+    
+    return false;
+    }
+
+    
+    public void reservarHorario(Sala sala, String data, int horario, String mat_professor) {
+        if(!existeProfessor(mat_professor)){
+            System.out.println("Não existe um professor associado a essa matrícula.");
+            return;
+        }
+
+        if (!sala.horarios.containsKey(data)) {
+            sala.horarios.put(data, new HashMap<>());
+        }
+
+        Map<Integer, String> horariosData = sala.horarios.get(data);
+
+        if (horariosData.size() != 8) {
+            for (int i = horariosData.size() + 1; i <= 8; i++) {
+                horariosData.put(i, "");
+            }
+        }
+
+        if (horariosData.containsKey(horario)) {
+            if (horariosData.get(horario).isEmpty()) {
+                horariosData.put(horario, mat_professor);
+                System.out.println("Horário reservado com sucesso.");
+            } else {
+                System.out.println("Horário indisponível.");
+            }
+        } else {
+            System.out.println("Horário inválido!");
+        }
+    }
+
+    public void liberarHorario(Sala sala, String data, int horario) {
+        if (sala.horarios.containsKey(data)) {
+            Map<Integer, String> horariosData = sala.horarios.get(data);
+
+            if (horariosData.containsKey(horario)) {
+                if (!horariosData.get(horario).isEmpty()) {
+                    horariosData.put(horario, "");
+                    System.out.println("Horário liberado com sucesso.");
+                } else {
+                    System.out.println("Horário já está livre.");
+                }
+            } else {
+                System.out.println("Horário inválido!");
+            }
+        } else {
+            System.out.println("Data inválida!");
+        }
+    }
+
+    public void exibeHorariosLivresNaSalaUmaSemanaPraFrente(Sala sala, String dataInicial) {
+        LocalDate data = LocalDate.parse(dataInicial, DateTimeFormatter.ISO_DATE);
+        
+        for (int i = 0; i < 9; i++) {
+            String dataAtual = data.plusDays(i).format(DateTimeFormatter.ISO_DATE);
+            
+            if (sala.horarios.containsKey(dataAtual)) {
+                Map<Integer, String> horariosData = sala.horarios.get(dataAtual);
+                
+                System.out.println("Data: " + dataAtual);
+                
+                for (int horario = 1; horario <= 8; horario++) {
+                    if (horariosData.containsKey(horario) && horariosData.get(horario).isEmpty()) {
+                        System.out.println("Horário " + horario + ": Livre");
+                    }
+                }
+                
+                System.out.println();
             }
         }
     }

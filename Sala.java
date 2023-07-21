@@ -10,14 +10,14 @@ public class Sala
     private String id;
     private float capacidade_pessoas;
     private boolean possui_computadores_para_alunos;
-    private Map<String, Map<Integer, String>> horarios;
+    public Map<String, Map<Integer, String>> horarios;
 
     public Sala(String id, float capacidade_pessoas, boolean possui_computadores_para_alunos)
     {
         this.id = id;
         this.capacidade_pessoas = capacidade_pessoas;
         this.possui_computadores_para_alunos = possui_computadores_para_alunos;
-        this.horarios = new HashMap<>();    
+        this.horarios = new HashMap<>();
     }
     
     public void setId(String id)
@@ -47,7 +47,7 @@ public class Sala
         return this.possui_computadores_para_alunos;
     }
 
-    public void reservarHorario(String data, int horario, String matricula) {
+/*     public void reservarHorario(String data, int horario, String matricula) {
         if (!horarios.containsKey(data)) {
             horarios.put(data, new HashMap<>());
         }
@@ -129,6 +129,6 @@ public class Sala
     }
     
     return false;
-    }
+    } */
 
 }

@@ -7,8 +7,6 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         int choice;
-        //String msg1;
-        //String msg2;
 
         GerenciadorSalasIMD gerenciadorsalas = new GerenciadorSalasIMD();
 
@@ -18,27 +16,30 @@ public class Main {
         Sala sala4 = new Sala("A104", 25, true);
         Sala sala5 = new Sala("A105", 20, true);
 
-        sala1.reservarHorario("2023-07-06", 1, "12345");
-        sala1.reservarHorario("2023-07-06", 2, "67890");
-        sala1.reservarHorario("2023-07-06", 5, "54321");
-        sala1.reservarHorario("2023-07-06", 6, "09876");
-        sala1.reservarHorario("2023-07-06", 7, "13579");
-
-        Professor professor1 = new Professor("Matheus", "003003003-03","002020202", "2022032742");
-
         gerenciadorsalas.registrarSala(sala1);
         gerenciadorsalas.registrarSala(sala2);
         gerenciadorsalas.registrarSala(sala3);
         gerenciadorsalas.registrarSala(sala4);
         gerenciadorsalas.registrarSala(sala5);
-        System.out.println(gerenciadorsalas.registrarProfessor(professor1));
 
-        gerenciadorsalas.removerSala("A101");
+        gerenciadorsalas.reservarHorario(sala1,"2023-07-06", 1, "12345");
+        gerenciadorsalas.reservarHorario(sala1,"2023-07-06", 2, "67890");
+        gerenciadorsalas.reservarHorario(sala1,"2023-07-06", 5, "54321");
+        gerenciadorsalas.reservarHorario(sala1,"2023-07-06", 6, "09876");
+        gerenciadorsalas.reservarHorario(sala1,"2023-07-06", 7, "13579");
+
+        Professor professor1 = new Professor("Matheus", "003003003-03","002020202", "2022032742");
+        gerenciadorsalas.registrarProfessor(professor1);
+
+        //gerenciadorsalas.removerSala("A105");
 
         //sala1.exibeHorariosLivresNaSalaUmaSemanaPraFrente("2023-07-06"); // ok!
         //gerenciadorsalas.exibeSalasRegistradas(); // ok!
         //gerenciadorsalas.exibeSalasLivresNoDiaEHorario("2023-07-06",1); // ok!
-        //System.out.println("Horário disponivel? " + sala1.isHorarioDisponivel("2023-07-04", 1)); // ok
+
+        System.out.println("Horário disponivel? " + gerenciadorsalas.isHorarioDisponivel(gerenciadorsalas.retornaSala("A101"),"2023-07-06", 3)); // ok     
+        System.out.println("Horário disponivel? " + gerenciadorsalas.isHorarioDisponivel(sala1,"2023-07-06", 3)); // ok
+
 
         while(true){
             System.out.println("O que você quer fazer?\n\n" +
