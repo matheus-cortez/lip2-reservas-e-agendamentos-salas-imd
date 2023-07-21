@@ -72,22 +72,25 @@ public class GerenciadorSalasIMD implements Gestao
         }
 
         professores.add(prof_de_interesse);
-
+        System.out.println("Professor registrado com sucesso!");
         return "Professor registrado com sucesso!";
     }    
 
     public String removerProfessor(Professor professor){
         professores.remove(professor);
 
+        System.out.println("Professor removido com sucesso!");
         return "Professor removido com sucesso!";
     }
 
     public String removerProfessor(String mat_professor){
         if(existeProfessor(mat_professor)){
             professores.remove(retornaProfessor(mat_professor));
+            System.out.println("Professor de matrícula " + mat_professor + " removido do sistema com sucesso.");
             return "Professor de matrícula " + mat_professor + " removido do sistema com sucesso.";
         }
 
+        System.out.println("Não há professores registrados sob a matrícula " + mat_professor);
         return "Não há professores registrados sob a matrícula " + mat_professor;
     }
     
@@ -108,6 +111,7 @@ public class GerenciadorSalasIMD implements Gestao
     public String removerSala(Sala sala){
         salas.remove(sala);
         
+        System.out.println("Sala removida com sucesso!");
         return "Sala removida com sucesso!";
     }
 
@@ -115,7 +119,7 @@ public class GerenciadorSalasIMD implements Gestao
         String sala_de_interesse;
 
         for(Sala sala : salas){
-            if(id_sala == sala.getId()){
+            if(id_sala.equals(sala.getId())){
                 salas.remove(sala);
                 return "Sala de id " + id_sala + " removida do sistema com sucesso.";
             }
