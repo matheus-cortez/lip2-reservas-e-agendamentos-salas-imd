@@ -6,7 +6,13 @@ import java.awt.event.ActionListener;
 public class InterfaceGrafica extends JFrame {
     private JButton reserveButton;
     private JButton releaseButton;
-    public GerenciadorSalasIMD gerenciadorsalas = new GerenciadorSalasIMD();
+    private GerenciadorSalasIMD gerenciadorsalas;
+    private JDialog reservationDialog;
+    private JDialog releaseDialog;
+
+    public void setGerenciadorSalas(GerenciadorSalasIMD gerenciadorsalas) {
+        this.gerenciadorsalas = gerenciadorsalas;
+    }
 
     public InterfaceGrafica() {
         // Configurações básicas da janela
@@ -41,7 +47,7 @@ public class InterfaceGrafica extends JFrame {
 
     private void showReservationDialog() {
         // Criação da caixa de diálogo para reserva de sala
-        JDialog reservationDialog = new JDialog(this, "Reservar Sala", true);
+        reservationDialog = new JDialog(this, "Reservar Sala", true);
         reservationDialog.setLayout(new GridLayout(5, 2));
         reservationDialog.setSize(300, 200);
 
@@ -97,7 +103,7 @@ public class InterfaceGrafica extends JFrame {
 
     private void showReleaseDialog() {
         // Criação da caixa de diálogo para liberação de sala
-        JDialog releaseDialog = new JDialog(this, "Liberar Sala", true);
+        releaseDialog = new JDialog(this, "Liberar Sala", true);
         releaseDialog.setLayout(new GridLayout(4, 2));
         releaseDialog.setSize(300, 150);
 
@@ -114,7 +120,7 @@ public class InterfaceGrafica extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nome = nameField.getText();
+                String sala = nameField.getText();
                 String data = dateField.getText();
                 int horario = Integer.parseInt(timeField.getText());
 

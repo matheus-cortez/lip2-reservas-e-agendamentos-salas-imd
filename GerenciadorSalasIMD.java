@@ -179,10 +179,10 @@ public class GerenciadorSalasIMD implements Gestao
     }
 
     
-    public void reservarHorario(Sala sala, String data, int horario, String mat_professor) {
+    public String reservarHorario(Sala sala, String data, int horario, String mat_professor) {
         if(!existeProfessor(mat_professor)){
             System.out.println("Não existe um professor associado a essa matrícula.");
-            return;
+            return "Não existe um professor associado a essa matrícula.";
         }
 
         if (!sala.horarios.containsKey(data)) {
@@ -201,15 +201,18 @@ public class GerenciadorSalasIMD implements Gestao
             if (horariosData.get(horario).isEmpty()) {
                 horariosData.put(horario, mat_professor);
                 System.out.println("Horário reservado com sucesso.");
+                return "Horário reservado com sucesso.";
             } else {
                 System.out.println("Horário indisponível.");
+                return "Horário indisponível.";
             }
         } else {
             System.out.println("Horário inválido!");
+            return "Horário inválido!";
         }
     }
 
-    public void liberarHorario(Sala sala, String data, int horario) {
+    public String liberarHorario(Sala sala, String data, int horario) {
         if (sala.horarios.containsKey(data)) {
             Map<Integer, String> horariosData = sala.horarios.get(data);
 
@@ -217,14 +220,18 @@ public class GerenciadorSalasIMD implements Gestao
                 if (!horariosData.get(horario).isEmpty()) {
                     horariosData.put(horario, "");
                     System.out.println("Horário liberado com sucesso.");
+                    return "Horário liberado com sucesso.";
                 } else {
                     System.out.println("Horário já está livre.");
+                    return "Horário já está livre.";
                 }
             } else {
                 System.out.println("Horário inválido!");
+                return "Horário inválido!";
             }
         } else {
             System.out.println("Data inválida!");
+            return "Data inválida!";
         }
     }
 

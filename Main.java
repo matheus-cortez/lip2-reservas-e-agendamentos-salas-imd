@@ -17,6 +17,7 @@ public class Main {
         String sala_escolhida;
 
         GerenciadorSalasIMD gerenciadorsalas = new GerenciadorSalasIMD();
+        InterfaceGrafica interfaceGrafica = new InterfaceGrafica();
 
         Sala sala1 = new Sala("A101", 40, false);
         Sala sala2 = new Sala("A102", 40, false);
@@ -63,9 +64,10 @@ public class Main {
 
             switch(choice){
                 case 1:
+                    interfaceGrafica.setGerenciadorSalas(gerenciadorsalas); // Set the gerenciadorsalas object
                     SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                        new InterfaceGrafica(gerenciadorsalas).setVisible(true);
+                    public void run() {
+                        interfaceGrafica.setVisible(true);
                         }
                     });
                     break;
