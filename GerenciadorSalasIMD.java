@@ -57,7 +57,6 @@ public class GerenciadorSalasIMD implements Gestao
                 return sala;
             }
         }
-        System.out.println("Entrou no blank sala");
         Sala blank_sala = new Sala("blank",1,false);
         return blank_sala;
     }
@@ -234,11 +233,11 @@ public class GerenciadorSalasIMD implements Gestao
         
         for (int i = 0; i < 9; i++) {
             String dataAtual = data.plusDays(i).format(DateTimeFormatter.ISO_DATE);
+
+            System.out.println("Data: " + dataAtual);
             
             if (sala.horarios.containsKey(dataAtual)) {
                 Map<Integer, String> horariosData = sala.horarios.get(dataAtual);
-                
-                System.out.println("Data: " + dataAtual);
                 
                 for (int horario = 1; horario <= 8; horario++) {
                     if (horariosData.containsKey(horario) && horariosData.get(horario).isEmpty()) {
@@ -247,6 +246,13 @@ public class GerenciadorSalasIMD implements Gestao
                 }
                 
                 System.out.println();
+            }else{
+                Map<Integer, String> horariosData = sala.horarios.get(dataAtual);
+
+                for (int horario = 1; horario <= 8; horario++) {
+                        System.out.println("Horário " + horario + ": Livre");
+                }
+
             }
         }
     }
