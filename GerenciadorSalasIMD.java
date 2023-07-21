@@ -34,7 +34,7 @@ public class GerenciadorSalasIMD implements Gestao
 
     public boolean existeProfessor(String mat_professor){
         for(Professor professor : professores){
-            if(mat_professor == professor.getMatricula()){
+            if(mat_professor.equals(professor.getMatricula())){
                 return true;
             }
         }
@@ -43,7 +43,7 @@ public class GerenciadorSalasIMD implements Gestao
 
     public Professor retornaProfessor(String mat_professor){
         for(Professor professor : professores){
-            if(mat_professor == professor.getMatricula()){
+            if(mat_professor.equals(professor.getMatricula())){
                 return professor;
             }
         }
@@ -230,8 +230,8 @@ public class GerenciadorSalasIMD implements Gestao
                 return "Horário inválido!";
             }
         } else {
-            System.out.println("Data inválida!");
-            return "Data inválida!";
+            System.out.println("A sala não está reservada nesta data!");
+            return "A sala não está reservada nesta data!";
         }
     }
 

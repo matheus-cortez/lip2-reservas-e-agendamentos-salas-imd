@@ -17,8 +17,8 @@ public class Main {
         String sala_escolhida;
 
         GerenciadorSalasIMD gerenciadorsalas = new GerenciadorSalasIMD();
-        InterfaceGrafica interfaceGrafica = new InterfaceGrafica();
-
+/*         InterfaceGrafica interfaceGrafica = new InterfaceGrafica();
+ */
         Sala sala1 = new Sala("A101", 40, false);
         Sala sala2 = new Sala("A102", 40, false);
         Sala sala3 = new Sala("A103", 20, true);
@@ -46,11 +46,13 @@ public class Main {
 
         while(true){
             System.out.println("\nO que você quer fazer?\n\n" +
-            "1. Abrir a interface gráfica de reserva/liberação de salas\n" +
+            "1. Abrir a interface gráfica de reserva/liberação de salas (apenas para mostrar a GUI)\n" +
             "2. Listar salas registradas\n" +
             "3. Listar professores registrados\n" + 
             "4. Listar horários livres em determinada sala, uma semana pra frente em relação a uma data\n" +
-            "5. Listar salas livres em um determinado dia e horário\n\n"
+            "5. Listar salas livres em um determinado dia e horário\n" +
+            "6. Reservar um horário em uma sala em um determinado dia\n" +
+            "7. Liberar um horário em uma sala em um determinado dia\n"
             );
 
             try{
@@ -64,12 +66,12 @@ public class Main {
 
             switch(choice){
                 case 1:
-                    interfaceGrafica.setGerenciadorSalas(gerenciadorsalas); // Set the gerenciadorsalas object
+/*                     interfaceGrafica.setGerenciadorSalas(gerenciadorsalas); // Set the gerenciadorsalas object
                     SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         interfaceGrafica.setVisible(true);
                         }
-                    });
+                    }); */
                     break;
                 case 2:
                     gerenciadorsalas.exibeSalasRegistradas();
@@ -94,6 +96,41 @@ public class Main {
                     horario_escolhido = scanner.nextInt();
 
                     gerenciadorsalas.exibeSalasLivresNoDiaEHorario(dia_escolhido, horario_escolhido);
+
+                case 6:
+                    System.out.println("Insira o nome da sala (A101, A102...):\n");
+                    sala_escolhida = scanner.nextLine();
+
+                    System.out.println("Insira o dia escolhido no formato YYYY-MM-DD:\n");
+                    dia_escolhido = scanner.nextLine();
+
+                    System.out.println("Insira o horario escolhido, sendo 1=M12, 8=N34:\n");
+                    horario_escolhido = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.println("Insira a matricula do professor solicitante:\n");
+                    matricula_professor_escolhido = scanner.nextLine();
+
+                    System.out.println((matricula_professor_escolhido.equals("2022032742")) + " " + matricula_professor_escolhido);
+
+                    System.out.println(gerenciadorsalas.reservarHorario(gerenciadorsalas.retornaSala(sala_escolhida), dia_escolhido, horario_escolhido, matricula_professor_escolhido));
+
+
+                    break;
+
+                case 7:
+                    System.out.println("Insira o nome da sala (A101, A102...):\n");
+                    sala_escolhida = scanner.nextLine();
+
+                    System.out.println("Insira o dia escolhido no formato YYYY-MM-DD:\n");
+                    dia_escolhido = scanner.nextLine();
+
+                    System.out.println("Insira o horario escolhido, sendo 1=M12, 8=N34:\n");
+                    horario_escolhido = scanner.nextInt();
+
+                    System.out.println(gerenciadorsalas.liberarHorario(gerenciadorsalas.retornaSala(sala_escolhida), dia_escolhido, horario_escolhido));
+
+                    break;
 
                 default:
                     System.out.println("A entrada precisa ser um número de 1 a 2.");
